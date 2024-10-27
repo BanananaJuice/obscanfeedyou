@@ -1,8 +1,16 @@
 import Link from "next/link";
-
 import { api, HydrateClient } from "~/trpc/server";
+import LineChart from "~/components/LineChart";
 
 export default async function Home() {
+  void api.homelessStats.getAll.prefetch();
+  const homelessFeedData = await api.homelessStats.getAll();
+
+  // Transform homelessFeedData to match LineChart's expected format
+  const chartData = homelessFeedData.map((entry) => ({
+    date: entry.date.toISOString(), // Convert Date to string
+    count: entry.peopleFed, // Rename peopleFed to count
+  }));
 
   return (
     <HydrateClient>
@@ -35,11 +43,9 @@ export default async function Home() {
               </div>
             </Link>
           </div>
-          <div className="flex flex-col items-center gap-2">
-            <p className="text-2xl text-white">
-            </p>
+          <div className="w-full max-w-3xl p-8 bg-white rounded-lg">
+            <LineChart data={chartData} />
           </div>
-
         </div>
       </main>
     </HydrateClient>
