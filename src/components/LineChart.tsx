@@ -27,10 +27,8 @@ const aggregateDataByDate = (data: { date: string; count: number }[]) => {
   return data.reduce((acc, entry) => {
     const dateObj: Date = new Date(entry.date);
     
-    // Type assertion to make sure TypeScript understands `formattedDate` will always be a string
-    const formattedDate = !isNaN(dateObj.getTime())
-      ? (dateObj.toISOString().split("T")[0] as string)
-      : "invalid-date";
+    // Use non-null assertion to guarantee `formattedDate` is a string
+    const formattedDate = dateObj.toISOString().split("T")[0]!;
 
     const existing = acc.find((item) => item.date === formattedDate);
     if (existing) {
