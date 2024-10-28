@@ -33,144 +33,146 @@ export default async function FunHomePage() {
 
 
     return (
-      <div className="flex flex-col min-h-screen bg-[#F0EAD2]">
-        <header className="px-4 lg:px-6 h-20 flex items-center bg-[#ADC178] shadow-md">
-          <a className="flex items-center justify-center" href="#">
-            <Utensils className="h-10 w-10 text-[#6C584C]" />
-            <span className="ml-2 text-3xl font-bold text-[#6C584C]">FoodFriends</span>
-          </a>
-          <nav className="ml-auto flex gap-4 sm:gap-6">
-            {["Home", "About", "Help Out", "Donate"].map((item) => (
-              <a
-                key={item}
-                className="text-lg font-medium hover:underline underline-offset-4 text-[#6C584C] transition-colors duration-200 hover:text-[#A98467]"
-                href="#"
-              >
-                {item}
-              </a>
-            ))}
-          </nav>
-        </header>
-        <main className="flex-1">
-          <section className="w-full py-12 md:py-24 lg:py-32 xl:py-48 bg-[#DDE5B6]">
-            <div className="container px-4 md:px-6 mx-auto">
-              <div className="flex flex-col items-center space-y-4 text-center">
-                <div className="space-y-2">
-                  <h1 className="text-4xl font-bold tracking-tighter sm:text-5xl md:text-6xl lg:text-7xl text-[#6C584C]">
-                    Sharing Smiles, One Meal at a Time!
-                  </h1>
-                  <p className="mx-auto max-w-[700px] text-[#A98467] text-xl md:text-2xl font-semibold">
-                    Join our weekend food fiesta and help us spread joy to those in need!
-                  </p>
-                </div>
-                <div className="space-x-4">
-                  <Button className="bg-[#dec0f1] text-[#6C584C] hover:bg-[#ADC178] text-lg font-bold py-2 px-6 rounded-full transition-all duration-200 hover:scale-105">
-                    Learn More
-                  </Button>
-                  <Button className="bg-[#A98467] text-[#F0EAD2] hover:bg-[#6C584C] text-lg font-bold py-2 px-6 rounded-full transition-all duration-200 hover:scale-105">
-                    Get Involved
-                  </Button>
+      <HydrateClient>
+        <div className="flex flex-col min-h-screen bg-[#F0EAD2]">
+          <header className="px-4 lg:px-6 h-20 flex items-center bg-[#ADC178] shadow-md">
+            <a className="flex items-center justify-center" href="#">
+              <Utensils className="h-10 w-10 text-[#6C584C]" />
+              <span className="ml-2 text-3xl font-bold text-[#6C584C]">ObsCanFeedYou</span>
+            </a>
+            <nav className="ml-auto flex gap-4 sm:gap-6">
+              {["Home", "About", "Help Out", "Donate"].map((item) => (
+                <a
+                  key={item}
+                  className="text-lg font-medium hover:underline underline-offset-4 text-[#6C584C] transition-colors duration-200 hover:text-[#A98467]"
+                  href="#"
+                >
+                  {item}
+                </a>
+              ))}
+            </nav>
+          </header>
+          <main className="flex-1">
+            <section className="w-full py-12 md:py-24 lg:py-32 xl:py-48 bg-[#DDE5B6]">
+              <div className="container px-4 md:px-6 mx-auto">
+                <div className="flex flex-col items-center space-y-4 text-center">
+                  <div className="space-y-2">
+                    <h1 className="text-4xl font-bold tracking-tighter sm:text-5xl md:text-6xl lg:text-7xl text-[#6C584C]">
+                      Sharing Smiles, One Meal at a Time!
+                    </h1>
+                    <p className="mx-auto max-w-[700px] text-[#A98467] text-xl md:text-2xl font-semibold">
+                      Join our weekend food fiesta and help us spread joy to those in need!
+                    </p>
+                  </div>
+                  <div className="space-x-4">
+                    <Button className="bg-[#dec0f1] text-[#6C584C] hover:bg-[#ADC178] text-lg font-bold py-2 px-6 rounded-full transition-all duration-200 hover:scale-105">
+                      Learn More
+                    </Button>
+                    <Button className="bg-[#A98467] text-[#F0EAD2] hover:bg-[#6C584C] text-lg font-bold py-2 px-6 rounded-full transition-all duration-200 hover:scale-105">
+                      Get Involved
+                    </Button>
+                  </div>
                 </div>
               </div>
-            </div>
-          </section>
-          <section className="w-full py-12 md:py-24 lg:py-32 bg-[#F0EAD2]">
-            <div className="container px-4 md:px-6 mx-auto">
-              <h2 className="text-3xl font-bold tracking-tighter sm:text-5xl text-center mb-8 text-[#6C584C]">Our Yummy Impact</h2>
-              <div className="grid gap-6 lg:grid-cols-3 lg:gap-12 mb-12">
-                {[
-                  {
-                    title: "5,000+ Happy Tummies",
-                    description: "Folks fed each month",
-                    content: "We've filled over 5,000 hungry bellies each month, spreading smiles across our community!",
-                    icon: Users,
-                    color: "bg-[#ADC178]",
-                  },
-                  {
-                    title: "Weekend Food Fiesta",
-                    description: "Non-stop weekend noms",
-                    content: "Our food heroes make sure delicious meals are ready every Saturday and Sunday, rain or shine!",
-                    icon: Calendar,
-                    color: "bg-[#DDE5B6]",
-                  },
-                  {
-                    title: "100% People-Powered",
-                    description: "Community love in action",
-                    content: "Our kitchen is fueled by the kindness of awesome volunteers from all walks of life!",
-                    icon: Heart,
-                    color: "bg-[#dec0f1]",
-                  },
-                ].map((card, index) => (
-                  <Card key={index} className={`${card.color} border-4 border-[#6C584C] rounded-2xl transform transition-all duration-200 hover:scale-105`}>
-                    <CardHeader>
-                      <card.icon className="h-12 w-12 mb-2 text-[#6C584C]" />
-                      <CardTitle className="text-2xl font-bold text-[#6C584C]">{card.title}</CardTitle>
-                      <CardDescription className="text-[#6C584C] font-semibold">{card.description}</CardDescription>
-                    </CardHeader>
-                    <CardContent>
-                      <p className="text-lg text-[#6C584C]">{card.content}</p>
-                    </CardContent>
-                  </Card>
-                ))}
-              </div>
-              
-              {/* Chart Section */}
-              <Card className="w-full max-w-3xl mx-auto bg-[#DDE5B6] border-4 border-[#6C584C] rounded-2xl overflow-hidden">
-                <CardHeader>
-                  <div className="flex items-center justify-between">
-                    <div>
-                      <CardTitle className="text-2xl font-bold text-[#6C584C] mb-2">Weekly Meal Magic</CardTitle>
-                      <CardDescription className="text-[#6C584C] font-semibold">
-                        Tracking our weekend food adventures!
-                      </CardDescription>
+            </section>
+            <section className="w-full py-12 md:py-24 lg:py-32 bg-[#F0EAD2]">
+              <div className="container px-4 md:px-6 mx-auto">
+                <h2 className="text-3xl font-bold tracking-tighter sm:text-5xl text-center mb-8 text-[#6C584C]">Our Yummy Impact</h2>
+                <div className="grid gap-6 lg:grid-cols-3 lg:gap-12 mb-12">
+                  {[
+                    {
+                      title: "5,000+ Happy Tummies",
+                      description: "Folks fed each month",
+                      content: "We've filled over 5,000 hungry bellies each month, spreading smiles across our community!",
+                      icon: Users,
+                      color: "bg-[#ADC178]",
+                    },
+                    {
+                      title: "Weekend Food Fiesta",
+                      description: "Non-stop weekend noms",
+                      content: "Our food heroes make sure delicious meals are ready every Saturday and Sunday, rain or shine!",
+                      icon: Calendar,
+                      color: "bg-[#DDE5B6]",
+                    },
+                    {
+                      title: "100% People-Powered",
+                      description: "Community love in action",
+                      content: "Our kitchen is fueled by the kindness of awesome volunteers from all walks of life!",
+                      icon: Heart,
+                      color: "bg-[#dec0f1]",
+                    },
+                  ].map((card, index) => (
+                    <Card key={index} className={`${card.color} border-4 border-[#6C584C] rounded-2xl transform transition-all duration-200 hover:scale-105`}>
+                      <CardHeader>
+                        <card.icon className="h-12 w-12 mb-2 text-[#6C584C]" />
+                        <CardTitle className="text-2xl font-bold text-[#6C584C]">{card.title}</CardTitle>
+                        <CardDescription className="text-[#6C584C] font-semibold">{card.description}</CardDescription>
+                      </CardHeader>
+                      <CardContent>
+                        <p className="text-lg text-[#6C584C]">{card.content}</p>
+                      </CardContent>
+                    </Card>
+                  ))}
+                </div>
+                
+                {/* Chart Section */}
+                <Card className="w-full max-w-3xl mx-auto bg-[#DDE5B6] border-4 border-[#6C584C] rounded-2xl overflow-hidden">
+                  <CardHeader>
+                    <div className="flex items-center justify-between">
+                      <div>
+                        <CardTitle className="text-2xl font-bold text-[#6C584C] mb-2">Weekly Meal Magic</CardTitle>
+                        <CardDescription className="text-[#6C584C] font-semibold">
+                          Tracking our weekend food adventures!
+                        </CardDescription>
+                      </div>
+                      <TrendingUp className="h-10 w-10 text-[#6C584C]" />
                     </div>
-                    <TrendingUp className="h-10 w-10 text-[#6C584C]" />
+                  </CardHeader>
+                  <CardContent>
+                    <div className="w-full p-4 bg-white rounded-lg">
+                      <LineChart data={chartData} />
+                    </div>
+                    <p className="mt-4 text-[#6C584C] text-lg">
+                      This chart shows the number of happy tummies We&apos;ve filled each week. 
+                      We update it every Saturday and Sunday, right after our weekend food fiesta! 
+                      Watch those numbers climb as we spread more smiles across our community.
+                    </p>
+                  </CardContent>
+                </Card>
+              </div>
+            </section>
+            <section className="w-full py-12 md:py-24 lg:py-32 bg-[#ADC178]">
+              <div className="container px-4 md:px-6 mx-auto">
+                <div className="flex flex-col items-center justify-center space-y-4 text-center">
+                  <div className="space-y-2">
+                    <h2 className="text-3xl font-bold tracking-tighter sm:text-5xl text-[#6C584C]">Join Our Food Adventure!</h2>
+                    <p className="mx-auto max-w-[600px] text-[#F0EAD2] text-xl md:text-2xl font-semibold">
+                      Whether you&apos;re a master chef or just love to lend a hand, your help can make someone&apos;s day brighter!
+                    </p>
                   </div>
-                </CardHeader>
-                <CardContent>
-                  <div className="w-full p-4 bg-white rounded-lg">
-                    <LineChart data={chartData} />
+                  <div className="space-x-4">
+                    <Button className="bg-[#dec0f1] text-[#6C584C] hover:bg-[#DDE5B6] text-lg font-bold py-2 px-6 rounded-full transition-all duration-200 hover:scale-105">
+                      Be a Food Hero
+                    </Button>
+                    <Button className="bg-[#6C584C] text-[#F0EAD2] hover:bg-[#A98467] text-lg font-bold py-2 px-6 rounded-full transition-all duration-200 hover:scale-105">
+                      Sprinkle Some Love
+                    </Button>
                   </div>
-                  <p className="mt-4 text-[#6C584C] text-lg">
-                    This chart shows the number of happy tummies we've filled each week. 
-                    We update it every Saturday and Sunday, right after our weekend food fiesta! 
-                    Watch those numbers climb as we spread more smiles across our community.
-                  </p>
-                </CardContent>
-              </Card>
-            </div>
-          </section>
-          <section className="w-full py-12 md:py-24 lg:py-32 bg-[#ADC178]">
-            <div className="container px-4 md:px-6 mx-auto">
-              <div className="flex flex-col items-center justify-center space-y-4 text-center">
-                <div className="space-y-2">
-                  <h2 className="text-3xl font-bold tracking-tighter sm:text-5xl text-[#6C584C]">Join Our Food Adventure!</h2>
-                  <p className="mx-auto max-w-[600px] text-[#F0EAD2] text-xl md:text-2xl font-semibold">
-                    Whether you're a master chef or just love to lend a hand, your help can make someone's day brighter!
-                  </p>
-                </div>
-                <div className="space-x-4">
-                  <Button className="bg-[#dec0f1] text-[#6C584C] hover:bg-[#DDE5B6] text-lg font-bold py-2 px-6 rounded-full transition-all duration-200 hover:scale-105">
-                    Be a Food Hero
-                  </Button>
-                  <Button className="bg-[#6C584C] text-[#F0EAD2] hover:bg-[#A98467] text-lg font-bold py-2 px-6 rounded-full transition-all duration-200 hover:scale-105">
-                    Sprinkle Some Love
-                  </Button>
                 </div>
               </div>
-            </div>
-          </section>
-        </main>
-        <footer className="flex flex-col gap-2 sm:flex-row py-6 w-full shrink-0 items-center px-4 md:px-6 border-t border-[#6C584C] bg-[#DDE5B6]">
-          <p className="text-sm text-[#6C584C]">© 2024 FoodFriends. Spreading joy, one meal at a time!</p>
-          <nav className="sm:ml-auto flex gap-4 sm:gap-6">
-            {["Our Promise", "Yummy Policy"].map((item) => (
-              <a key={item} className="text-sm hover:underline underline-offset-4 text-[#6C584C] transition-colors duration-200 hover:text-[#A98467]" href="#">
-                {item}
-              </a>
-            ))}
-          </nav>
-        </footer>
-      </div>
+            </section>
+          </main>
+          <footer className="flex flex-col gap-2 sm:flex-row py-6 w-full shrink-0 items-center px-4 md:px-6 border-t border-[#6C584C] bg-[#DDE5B6]">
+            <p className="text-sm text-[#6C584C]">© 2024 FoodFriends. Spreading joy, one meal at a time!</p>
+            <nav className="sm:ml-auto flex gap-4 sm:gap-6">
+              {["Our Promise", "Yummy Policy"].map((item) => (
+                <a key={item} className="text-sm hover:underline underline-offset-4 text-[#6C584C] transition-colors duration-200 hover:text-[#A98467]" href="#">
+                  {item}
+                </a>
+              ))}
+            </nav>
+          </footer>
+        </div>
+        </HydrateClient>
     )
 }
