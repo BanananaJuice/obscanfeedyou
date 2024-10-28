@@ -1,53 +1,91 @@
 import Link from "next/link";
+import React from "react";
+import axios from "axios"; // Import axios for API requests
 import { api, HydrateClient } from "~/trpc/server";
 import LineChart from "~/components/LineChart";
+import { Card } from "~/components/Card";
 
 export default async function Home() {
   void api.homelessStats.getAll.prefetch();
   const homelessFeedData = await api.homelessStats.getAll();
 
-  // Transform homelessFeedData to match LineChart's expected format
+  const totalPeopleFed = homelessFeedData.reduce((sum, entry) => sum + entry.peopleFed, 0);
+
   const chartData = homelessFeedData.map((entry) => ({
-    date: entry.date.toISOString(), // Convert Date to string
-    count: entry.peopleFed, // Rename peopleFed to count
+    date: entry.date.toISOString(),
+    count: entry.peopleFed,
   }));
+
+  // Fetch unemployment rate data
+  const unemploymentRateData = await axios.get(
+    "https://api.worldbank.org/v2/country/za/indicator/SL.UEM.TOTL.ZS?format=json"
+  );
+
+  // Extract the latest unemployment rate from the response
+  const unemploymentRate = unemploymentRateData.data[1]?.[0]?.value ?? "N/A";
 
   return (
     <HydrateClient>
-      <main className="flex min-h-screen flex-col items-center justify-center bg-gradient-to-b from-[#2e026d] to-[#15162c] text-white">
-        <div className="container flex flex-col items-center justify-center gap-12 px-4 py-16">
-          <h1 className="text-5xl font-extrabold tracking-tight sm:text-[5rem]">
-            Create <span className="text-[hsl(280,100%,70%)]">T3</span> App
-          </h1>
-          <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 md:gap-8">
-            <Link
-              className="flex max-w-xs flex-col gap-4 rounded-xl bg-white/10 p-4 hover:bg-white/20"
-              href="https://create.t3.gg/en/usage/first-steps"
-              target="_blank"
-            >
-              <h3 className="text-2xl font-bold">First Steps →</h3>
-              <div className="text-lg">
-                Just the basics - Everything you need to know to set up your
-                database and authentication.
-              </div>
-            </Link>
-            <Link
-              className="flex max-w-xs flex-col gap-4 rounded-xl bg-white/10 p-4 hover:bg-white/20"
-              href="https://create.t3.gg/en/introduction"
-              target="_blank"
-            >
-              <h3 className="text-2xl font-bold">Documentation →</h3>
-              <div className="text-lg">
-                Learn more about Create T3 App, the libraries it uses, and how
-                to deploy it.
-              </div>
-            </Link>
+      <div className="relative min-h-screen w-full overflow-hidden">
+        {/* Animated SVG Background */}
+        <div className="absolute inset-0 w-full h-full bg-wave bg-cover animate-wave"></div>
+
+        {/* Main Content */}
+        <main className="relative z-10 flex min-h-screen flex-col items-center justify-center text-white">
+          <div className="container flex flex-col items-center justify-center gap-12 px-4 py-16">
+            <h1 className="text-5xl font-extrabold tracking-tight sm:text-[5rem] text-accent">
+              ObsCanFeedYou
+            </h1>
+            <p className="text-lg text-justify max-w-2xl">
+              ObsCanFeedYou aims to serve the homeless community in Observatory, Cape Town, by distributing meals on weekends.
+            </p>
+
+            {/* Total People Fed Card */}
+            <Card className="bg-brown text-white max-w-3xl p-8">
+              <h3 className="text-3xl font-bold">Total People Fed: {totalPeopleFed}</h3>
+            </Card>
+
+            {/* South African Unemployment Rate Card */}
+            <Card className="bg-darkBrown text-white max-w-3xl p-8">
+              <h3 className="text-3xl font-bold">South African Unemployment Rate</h3>
+              <p className="text-lg mt-4">{unemploymentRate}%</p>
+            </Card>
+
+            {/* Mission Statement Card */}
+            <Card className="bg-olive text-white max-w-3xl p-8">
+              <h3 className="text-3xl font-bold mb-4">Our Mission</h3>
+              <p className="text-lg">
+                To provide consistent nourishment to the homeless community in Observatory, Cape Town, by creating a reliable network of support and compassion.
+              </p>
+            </Card>
+
+            {/* Goals Card */}
+            <Card className="bg-lightGreen text-white max-w-3xl p-8">
+              <h3 className="text-3xl font-bold mb-4">Our Goals</h3>
+              <ul className="list-disc ml-5 text-lg">
+                <li>Increase the number of individuals we reach by 20% each year.</li>
+                <li>Collaborate with local businesses to secure sustainable food sources.</li>
+                <li>Build a community of volunteers to expand our reach.</li>
+              </ul>
+            </Card>
+
+            {/* Values Card */}
+            <Card className="bg-accent text-white max-w-3xl p-8">
+              <h3 className="text-3xl font-bold mb-4">Our Values</h3>
+              <ul className="list-disc ml-5 text-lg">
+                <li><strong>Compassion</strong>: Every individual deserves compassion, care, and dignity.</li>
+                <li><strong>Community</strong>: We believe in working together to uplift our neighborhood.</li>
+                <li><strong>Sustainability</strong>: Reducing waste and making a positive impact through thoughtful resource management.</li>
+              </ul>
+            </Card>
+
+            {/* Chart Section */}
+            <div className="w-full max-w-3xl p-8 bg-white rounded-lg">
+              <LineChart data={chartData} />
+            </div>
           </div>
-          <div className="w-full max-w-3xl p-8 bg-white rounded-lg">
-            <LineChart data={chartData} />
-          </div>
-        </div>
-      </main>
+        </main>
+      </div>
     </HydrateClient>
   );
 }
