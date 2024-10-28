@@ -25,15 +25,16 @@ interface LineChartProps {
 // Helper function to aggregate data by date
 const aggregateDataByDate = (data: { date: string; count: number }[]) => {
   return data.reduce((acc, entry) => {
-    if (!entry.date) {
-      return acc;
-    }
+    const dateObj: Date = new Date(entry.date);
+    
+    // Type assertion to make sure TypeScript understands `formattedDate` will always be a string
+    const formattedDate = !isNaN(dateObj.getTime())
+      ? (dateObj.toISOString().split("T")[0] as string)
+      : "invalid-date";
 
-    const formattedDate = new Date(entry.date).toISOString().split("T")[0];
     const existing = acc.find((item) => item.date === formattedDate);
-
     if (existing) {
-      existing.count += entry.count; // Aggregate by summing counts
+      existing.count += entry.count;
     } else {
       acc.push({ date: formattedDate, count: entry.count });
     }
@@ -41,6 +42,8 @@ const aggregateDataByDate = (data: { date: string; count: number }[]) => {
     return acc;
   }, [] as { date: string; count: number }[]);
 };
+
+
 
 const LineChart = ({ data }: LineChartProps) => {
   // Sort data by date and aggregate by date
