@@ -1,4 +1,4 @@
-import Link from "next/link";
+// import Link from "next/link";
 import React from "react";
 import axios from "axios"; // Import axios for API requests
 import { api, HydrateClient } from "~/trpc/server";
@@ -16,13 +16,19 @@ export default async function Home() {
     count: entry.peopleFed,
   }));
 
-  // Fetch unemployment rate data
-  const unemploymentRateData = await axios.get(
+  interface WorldBankResponse {
+    [index: number]: {
+      value?: number;
+    }[];
+  }
+  
+  const unemploymentRateData = await axios.get<WorldBankResponse>(
     "https://api.worldbank.org/v2/country/za/indicator/SL.UEM.TOTL.ZS?format=json"
   );
-
-  // Extract the latest unemployment rate from the response
-  const unemploymentRate = unemploymentRateData.data[1]?.[0]?.value ?? "N/A";
+  
+  // Extract the latest unemployment rate from the response with type safety
+  const unemploymentRate =
+    unemploymentRateData.data?.[1]?.[0]?.value ?? "N/A";
 
   return (
     <HydrateClient>
