@@ -16,11 +16,8 @@ export default async function Home() {
     count: entry.peopleFed,
   }));
 
-  interface WorldBankResponse {
-    [index: number]: {
-      value?: number;
-    }[];
-  }
+  type WorldBankResponse = Record<number, { value?: number }[]>;
+
   
   const unemploymentRateData = await axios.get<WorldBankResponse>(
     "https://api.worldbank.org/v2/country/za/indicator/SL.UEM.TOTL.ZS?format=json"

@@ -1,7 +1,18 @@
 "use client";
 
 import { Line } from "react-chartjs-2";
-import { Chart as ChartJS, CategoryScale, LinearScale, PointElement, LineElement, Title, Tooltip, Legend, TimeScale, ChartOptions } from "chart.js";
+import {
+  Chart as ChartJS,
+  CategoryScale,
+  LinearScale,
+  PointElement,
+  LineElement,
+  Title,
+  Tooltip,
+  Legend,
+  TimeScale,
+} from "chart.js";
+import type { ChartOptions } from "chart.js";
 import "chartjs-adapter-date-fns";
 
 // Register Chart.js components
