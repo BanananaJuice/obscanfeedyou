@@ -1,11 +1,14 @@
-// import Link from "next/link";
-import React from "react";
-import axios from "axios"; // Import axios for API requests
+import * as React from "react"
+import { Calendar, Heart, Users, Utensils, TrendingUp } from "lucide-react"
+import axios from "axios"; 
 import { api, HydrateClient } from "~/trpc/server";
 import LineChart from "~/components/LineChart";
-import { Card } from "~/components/Card";
 
-export default async function Home() {
+import { Button } from "../components/ui/button"
+import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "../components/ui/card"
+
+export default async function FunHomePage() {
+
   void api.homelessStats.getAll.prefetch();
   const homelessFeedData = await api.homelessStats.getAll();
 
@@ -27,68 +30,147 @@ export default async function Home() {
   const unemploymentRate =
     unemploymentRateData.data?.[1]?.[0]?.value ?? "N/A";
 
-  return (
-    <HydrateClient>
-      <div className="relative min-h-screen w-full overflow-hidden">
-        {/* Animated SVG Background */}
-        <div className="absolute inset-0 w-full h-full bg-wave bg-cover animate-wave"></div>
 
-        {/* Main Content */}
-        <main className="relative z-10 flex min-h-screen flex-col items-center justify-center text-white">
-          <div className="container flex flex-col items-center justify-center gap-12 px-4 py-16">
-            <h1 className="text-5xl font-extrabold tracking-tight sm:text-[5rem] text-accent">
-              ObsCanFeedYou
-            </h1>
-            <p className="text-lg text-justify max-w-2xl">
-              ObsCanFeedYou aims to serve the homeless community in Observatory, Cape Town, by distributing meals on weekends.
-            </p>
 
-            {/* Total People Fed Card */}
-            <Card className="bg-brown text-white max-w-3xl p-8">
-              <h3 className="text-3xl font-bold">Total People Fed: {totalPeopleFed}</h3>
-            </Card>
-
-            {/* South African Unemployment Rate Card */}
-            <Card className="bg-darkBrown text-white max-w-3xl p-8">
-              <h3 className="text-3xl font-bold">South African Unemployment Rate</h3>
-              <p className="text-lg mt-4">{unemploymentRate}%</p>
-            </Card>
-
-            {/* Mission Statement Card */}
-            <Card className="bg-olive text-white max-w-3xl p-8">
-              <h3 className="text-3xl font-bold mb-4">Our Mission</h3>
-              <p className="text-lg">
-                To provide consistent nourishment to the homeless community in Observatory, Cape Town, by creating a reliable network of support and compassion.
-              </p>
-            </Card>
-
-            {/* Goals Card */}
-            <Card className="bg-lightGreen text-white max-w-3xl p-8">
-              <h3 className="text-3xl font-bold mb-4">Our Goals</h3>
-              <ul className="list-disc ml-5 text-lg">
-                <li>Increase the number of individuals we reach by 20% each year.</li>
-                <li>Collaborate with local businesses to secure sustainable food sources.</li>
-                <li>Build a community of volunteers to expand our reach.</li>
-              </ul>
-            </Card>
-
-            {/* Values Card */}
-            <Card className="bg-accent text-white max-w-3xl p-8">
-              <h3 className="text-3xl font-bold mb-4">Our Values</h3>
-              <ul className="list-disc ml-5 text-lg">
-                <li><strong>Compassion</strong>: Every individual deserves compassion, care, and dignity.</li>
-                <li><strong>Community</strong>: We believe in working together to uplift our neighborhood.</li>
-                <li><strong>Sustainability</strong>: Reducing waste and making a positive impact through thoughtful resource management.</li>
-              </ul>
-            </Card>
-
-            {/* Chart Section */}
-            <div className="w-full max-w-3xl p-8 bg-white rounded-lg">
-              <LineChart data={chartData} />
+    return (
+      <div className="flex flex-col min-h-screen bg-[#F0EAD2]">
+        <header className="px-4 lg:px-6 h-20 flex items-center bg-[#ADC178] shadow-md">
+          <a className="flex items-center justify-center" href="#">
+            <Utensils className="h-10 w-10 text-[#6C584C]" />
+            <span className="ml-2 text-3xl font-bold text-[#6C584C]">FoodFriends</span>
+          </a>
+          <nav className="ml-auto flex gap-4 sm:gap-6">
+            {["Home", "About", "Help Out", "Donate"].map((item) => (
+              <a
+                key={item}
+                className="text-lg font-medium hover:underline underline-offset-4 text-[#6C584C] transition-colors duration-200 hover:text-[#A98467]"
+                href="#"
+              >
+                {item}
+              </a>
+            ))}
+          </nav>
+        </header>
+        <main className="flex-1">
+          <section className="w-full py-12 md:py-24 lg:py-32 xl:py-48 bg-[#DDE5B6]">
+            <div className="container px-4 md:px-6 mx-auto">
+              <div className="flex flex-col items-center space-y-4 text-center">
+                <div className="space-y-2">
+                  <h1 className="text-4xl font-bold tracking-tighter sm:text-5xl md:text-6xl lg:text-7xl text-[#6C584C]">
+                    Sharing Smiles, One Meal at a Time!
+                  </h1>
+                  <p className="mx-auto max-w-[700px] text-[#A98467] text-xl md:text-2xl font-semibold">
+                    Join our weekend food fiesta and help us spread joy to those in need!
+                  </p>
+                </div>
+                <div className="space-x-4">
+                  <Button className="bg-[#dec0f1] text-[#6C584C] hover:bg-[#ADC178] text-lg font-bold py-2 px-6 rounded-full transition-all duration-200 hover:scale-105">
+                    Learn More
+                  </Button>
+                  <Button className="bg-[#A98467] text-[#F0EAD2] hover:bg-[#6C584C] text-lg font-bold py-2 px-6 rounded-full transition-all duration-200 hover:scale-105">
+                    Get Involved
+                  </Button>
+                </div>
+              </div>
             </div>
-          </div>
+          </section>
+          <section className="w-full py-12 md:py-24 lg:py-32 bg-[#F0EAD2]">
+            <div className="container px-4 md:px-6 mx-auto">
+              <h2 className="text-3xl font-bold tracking-tighter sm:text-5xl text-center mb-8 text-[#6C584C]">Our Yummy Impact</h2>
+              <div className="grid gap-6 lg:grid-cols-3 lg:gap-12 mb-12">
+                {[
+                  {
+                    title: "5,000+ Happy Tummies",
+                    description: "Folks fed each month",
+                    content: "We've filled over 5,000 hungry bellies each month, spreading smiles across our community!",
+                    icon: Users,
+                    color: "bg-[#ADC178]",
+                  },
+                  {
+                    title: "Weekend Food Fiesta",
+                    description: "Non-stop weekend noms",
+                    content: "Our food heroes make sure delicious meals are ready every Saturday and Sunday, rain or shine!",
+                    icon: Calendar,
+                    color: "bg-[#DDE5B6]",
+                  },
+                  {
+                    title: "100% People-Powered",
+                    description: "Community love in action",
+                    content: "Our kitchen is fueled by the kindness of awesome volunteers from all walks of life!",
+                    icon: Heart,
+                    color: "bg-[#dec0f1]",
+                  },
+                ].map((card, index) => (
+                  <Card key={index} className={`${card.color} border-4 border-[#6C584C] rounded-2xl transform transition-all duration-200 hover:scale-105`}>
+                    <CardHeader>
+                      <card.icon className="h-12 w-12 mb-2 text-[#6C584C]" />
+                      <CardTitle className="text-2xl font-bold text-[#6C584C]">{card.title}</CardTitle>
+                      <CardDescription className="text-[#6C584C] font-semibold">{card.description}</CardDescription>
+                    </CardHeader>
+                    <CardContent>
+                      <p className="text-lg text-[#6C584C]">{card.content}</p>
+                    </CardContent>
+                  </Card>
+                ))}
+              </div>
+              
+              {/* Chart Section */}
+              <Card className="w-full max-w-3xl mx-auto bg-[#DDE5B6] border-4 border-[#6C584C] rounded-2xl overflow-hidden">
+                <CardHeader>
+                  <div className="flex items-center justify-between">
+                    <div>
+                      <CardTitle className="text-2xl font-bold text-[#6C584C] mb-2">Weekly Meal Magic</CardTitle>
+                      <CardDescription className="text-[#6C584C] font-semibold">
+                        Tracking our weekend food adventures!
+                      </CardDescription>
+                    </div>
+                    <TrendingUp className="h-10 w-10 text-[#6C584C]" />
+                  </div>
+                </CardHeader>
+                <CardContent>
+                  <div className="w-full p-4 bg-white rounded-lg">
+                    <LineChart data={chartData} />
+                  </div>
+                  <p className="mt-4 text-[#6C584C] text-lg">
+                    This chart shows the number of happy tummies we've filled each week. 
+                    We update it every Saturday and Sunday, right after our weekend food fiesta! 
+                    Watch those numbers climb as we spread more smiles across our community.
+                  </p>
+                </CardContent>
+              </Card>
+            </div>
+          </section>
+          <section className="w-full py-12 md:py-24 lg:py-32 bg-[#ADC178]">
+            <div className="container px-4 md:px-6 mx-auto">
+              <div className="flex flex-col items-center justify-center space-y-4 text-center">
+                <div className="space-y-2">
+                  <h2 className="text-3xl font-bold tracking-tighter sm:text-5xl text-[#6C584C]">Join Our Food Adventure!</h2>
+                  <p className="mx-auto max-w-[600px] text-[#F0EAD2] text-xl md:text-2xl font-semibold">
+                    Whether you're a master chef or just love to lend a hand, your help can make someone's day brighter!
+                  </p>
+                </div>
+                <div className="space-x-4">
+                  <Button className="bg-[#dec0f1] text-[#6C584C] hover:bg-[#DDE5B6] text-lg font-bold py-2 px-6 rounded-full transition-all duration-200 hover:scale-105">
+                    Be a Food Hero
+                  </Button>
+                  <Button className="bg-[#6C584C] text-[#F0EAD2] hover:bg-[#A98467] text-lg font-bold py-2 px-6 rounded-full transition-all duration-200 hover:scale-105">
+                    Sprinkle Some Love
+                  </Button>
+                </div>
+              </div>
+            </div>
+          </section>
         </main>
+        <footer className="flex flex-col gap-2 sm:flex-row py-6 w-full shrink-0 items-center px-4 md:px-6 border-t border-[#6C584C] bg-[#DDE5B6]">
+          <p className="text-sm text-[#6C584C]">© 2024 FoodFriends. Spreading joy, one meal at a time!</p>
+          <nav className="sm:ml-auto flex gap-4 sm:gap-6">
+            {["Our Promise", "Yummy Policy"].map((item) => (
+              <a key={item} className="text-sm hover:underline underline-offset-4 text-[#6C584C] transition-colors duration-200 hover:text-[#A98467]" href="#">
+                {item}
+              </a>
+            ))}
+          </nav>
+        </footer>
       </div>
-    </HydrateClient>
-  );
+    )
 }

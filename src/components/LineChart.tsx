@@ -26,8 +26,6 @@ interface LineChartProps {
 const aggregateDataByDate = (data: { date: string; count: number }[]) => {
   return data.reduce((acc, entry) => {
     const dateObj: Date = new Date(entry.date);
-    
-    // Use non-null assertion to guarantee `formattedDate` is a string
     const formattedDate = dateObj.toISOString().split("T")[0]!;
 
     const existing = acc.find((item) => item.date === formattedDate);
@@ -41,8 +39,6 @@ const aggregateDataByDate = (data: { date: string; count: number }[]) => {
   }, [] as { date: string; count: number }[]);
 };
 
-
-
 const LineChart = ({ data }: LineChartProps) => {
   // Sort data by date and aggregate by date
   const sortedData = data.sort((a, b) => new Date(a.date).getTime() - new Date(b.date).getTime());
@@ -52,11 +48,16 @@ const LineChart = ({ data }: LineChartProps) => {
     labels: aggregatedData.map((entry) => entry.date),
     datasets: [
       {
-        label: "Homeless Counts",
+        label: "People Served",
         data: aggregatedData.map((entry) => entry.count),
-        borderColor: "rgba(75, 192, 192, 1)",
-        backgroundColor: "rgba(75, 192, 192, 0.2)",
-        fill: false, // Disable filling below the line
+        borderColor: "#ADC178", // olive color
+        backgroundColor: "rgba(173, 193, 120, 0.2)", // olive color with opacity
+        fill: true,
+        tension: 0.4, // Add some curve to the line
+        pointBackgroundColor: "#6C584C", // darkBrown for point color
+        pointBorderColor: "#F0EAD2", // beige for point border
+        pointHoverBackgroundColor: "#dec0f1", // accent color for hover
+        pointHoverBorderColor: "#A98467", // brown for hover border
       },
     ],
   };
@@ -64,6 +65,7 @@ const LineChart = ({ data }: LineChartProps) => {
   // Define options with explicit typing for line charts
   const options: ChartOptions<"line"> = {
     responsive: true,
+    maintainAspectRatio: false,
     scales: {
       x: {
         type: "time",
@@ -73,11 +75,59 @@ const LineChart = ({ data }: LineChartProps) => {
             day: "MMM d", // Format for day and month only
           },
         },
+        grid: {
+          color: "rgba(108, 88, 76, 0.1)", // darkBrown with opacity for grid lines
+        },
+        ticks: {
+          color: "#6C584C", // darkBrown for x-axis labels
+        },
+      },
+      y: {
+        beginAtZero: true,
+        grid: {
+          color: "rgba(108, 88, 76, 0.1)", // darkBrown with opacity for grid lines
+        },
+        ticks: {
+          color: "#6C584C", // darkBrown for y-axis labels
+        },
+      },
+    },
+    plugins: {
+      legend: {
+        labels: {
+          color: "#6C584C", // darkBrown for legend labels
+          font: {
+            family: "'Comic Sans MS', 'Chalkboard SE', 'Arial', sans-serif", // More playful font
+            size: 14,
+          },
+        },
+      },
+      tooltip: {
+        backgroundColor: "#F0EAD2", // beige background for tooltip
+        titleColor: "#6C584C", // darkBrown for tooltip title
+        bodyColor: "#A98467", // brown for tooltip body
+        borderColor: "#ADC178", // olive border for tooltip
+        borderWidth: 2,
+        cornerRadius: 8,
+        padding: 10,
+        titleFont: {
+          family: "'Comic Sans MS', 'Chalkboard SE', 'Arial', sans-serif",
+          size: 14,
+          weight: 'bold',
+        },
+        bodyFont: {
+          family: "'Comic Sans MS', 'Chalkboard SE', 'Arial', sans-serif",
+          size: 12,
+        },
       },
     },
   };
 
-  return <Line data={chartData} options={options} />;
+  return (
+    <div style={{ height: "400px", width: "100%" }}>
+      <Line data={chartData} options={options} />
+    </div>
+  );
 };
 
 export default LineChart;
