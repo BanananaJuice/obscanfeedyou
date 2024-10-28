@@ -22,15 +22,40 @@ interface LineChartProps {
   data: { date: string; count: number }[];
 }
 
+// Helper function to aggregate data by date
+const aggregateDataByDate = (data: { date: string; count: number }[]) => {
+  return data.reduce((acc, entry) => {
+    if (!entry.date) {
+      return acc;
+    }
+
+    const formattedDate = new Date(entry.date).toISOString().split("T")[0];
+    const existing = acc.find((item) => item.date === formattedDate);
+
+    if (existing) {
+      existing.count += entry.count; // Aggregate by summing counts
+    } else {
+      acc.push({ date: formattedDate, count: entry.count });
+    }
+
+    return acc;
+  }, [] as { date: string; count: number }[]);
+};
+
 const LineChart = ({ data }: LineChartProps) => {
+  // Sort data by date and aggregate by date
+  const sortedData = data.sort((a, b) => new Date(a.date).getTime() - new Date(b.date).getTime());
+  const aggregatedData = aggregateDataByDate(sortedData);
+
   const chartData = {
-    labels: data.map((entry) => entry.date),
+    labels: aggregatedData.map((entry) => entry.date),
     datasets: [
       {
         label: "Homeless Counts",
-        data: data.map((entry) => entry.count),
+        data: aggregatedData.map((entry) => entry.count),
         borderColor: "rgba(75, 192, 192, 1)",
         backgroundColor: "rgba(75, 192, 192, 0.2)",
+        fill: false, // Disable filling below the line
       },
     ],
   };
