@@ -14,7 +14,12 @@ export default async function FunHomePage() {
 
   const totalPeopleFed = homelessFeedData.reduce((sum, entry) => sum + entry.peopleFed, 0);
 
-  const chartData = homelessFeedData.map((entry) => ({
+  const chartData = homelessFeedData
+  .filter(entry => {
+    const day = new Date(entry.date).getDay();
+    return day === 6 || day === 0; // 6 = Saturday, 0 = Sunday
+  })
+  .map(entry => ({
     date: entry.date.toISOString(),
     count: entry.peopleFed,
   }));

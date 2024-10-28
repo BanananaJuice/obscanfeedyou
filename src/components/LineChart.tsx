@@ -45,11 +45,21 @@ const LineChart = ({ data }: LineChartProps) => {
   const aggregatedData = aggregateDataByDate(sortedData);
 
   const chartData = {
-    labels: aggregatedData.map((entry) => entry.date),
+    labels: aggregatedData
+      .filter((entry) => {
+        const day = new Date(entry.date).getDay();
+        return day === 6 || day === 0; // Include only Saturdays and Sundays
+      })
+      .map((entry) => entry.date),
     datasets: [
       {
         label: "People Served",
-        data: aggregatedData.map((entry) => entry.count),
+        data: aggregatedData
+          .filter((entry) => {
+            const day = new Date(entry.date).getDay();
+            return day === 6 || day === 0;
+          })
+          .map((entry) => entry.count),
         borderColor: "#ADC178", // olive color
         backgroundColor: "rgba(173, 193, 120, 0.2)", // olive color with opacity
         fill: true,
@@ -61,6 +71,7 @@ const LineChart = ({ data }: LineChartProps) => {
       },
     ],
   };
+  
 
   // Define options with explicit typing for line charts
   const options: ChartOptions<"line"> = {
@@ -68,13 +79,7 @@ const LineChart = ({ data }: LineChartProps) => {
     maintainAspectRatio: false,
     scales: {
       x: {
-        type: "time",
-        time: {
-          unit: "day",
-          displayFormats: {
-            day: "MMM d", // Format for day and month only
-          },
-        },
+        type: "category",
         grid: {
           color: "rgba(108, 88, 76, 0.1)", // darkBrown with opacity for grid lines
         },
@@ -122,6 +127,8 @@ const LineChart = ({ data }: LineChartProps) => {
       },
     },
   };
+  
+  
 
   return (
     <div style={{ height: "400px", width: "100%" }}>
