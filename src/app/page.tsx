@@ -4,6 +4,7 @@ import axios from "axios";
 import { api, HydrateClient } from "~/trpc/server";
 import LineChart from "~/components/LineChart";
 import Image from "next/image"
+import { Analytics } from "@vercel/analytics/react"
 
 import { Button } from "../components/ui/button"
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "../components/ui/card"
@@ -187,6 +188,7 @@ export default async function FunHomePage() {
             </nav>
           </footer>
         </div>
+        <Analytics/>
         </HydrateClient>
     )
 }
