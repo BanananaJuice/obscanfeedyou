@@ -3,6 +3,7 @@ import { Calendar, Heart, Users, Utensils, TrendingUp } from "lucide-react"
 import axios from "axios"; 
 import { api, HydrateClient } from "~/trpc/server";
 import LineChart from "~/components/LineChart";
+import Image from "next/image"
 
 import { Button } from "../components/ui/button"
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "../components/ui/card"
@@ -40,22 +41,30 @@ export default async function FunHomePage() {
     return (
       <HydrateClient>
         <div className="flex flex-col min-h-screen bg-[#F0EAD2]">
-          <header className="px-4 lg:px-6 h-20 flex items-center bg-[#ADC178] shadow-md">
-            <a className="flex items-center justify-center" href="#">
-              <Utensils className="h-10 w-10 text-[#6C584C]" />
-              <span className="ml-2 text-3xl font-bold text-[#6C584C]">ObsCanFeedYou</span>
+        <header className="px-4 lg:px-6 h-24 flex items-center bg-[#ADC178] shadow-md">
+        <div className="flex items-center justify-center">
+          <div className="relative w-16 h-16 mr-3">
+            <Image
+              src="/ObsCan_logo.png" // Replace with the actual path to your logo
+              alt="ObsCanFeedYou Logo"
+              layout="fill"
+              objectFit="contain"
+              className="rounded-full"
+            />
+          </div>
+          <span className="text-3xl font-bold text-[#6C584C]">ObsCanFeedYou</span>
+        </div>
+        <nav className="ml-auto flex gap-4 sm:gap-6">
+          {["Home", "About", "Help Out", "Donate"].map((item) => (
+            <a
+              key={item}
+              className="text-lg font-medium hover:underline underline-offset-4 text-[#6C584C] transition-colors duration-200 hover:text-[#A98467]"
+              href="#"
+            >
+              {item}
             </a>
-            <nav className="ml-auto flex gap-4 sm:gap-6">
-              {["Home", "About", "Help Out", "Donate"].map((item) => (
-                <a
-                  key={item}
-                  className="text-lg font-medium hover:underline underline-offset-4 text-[#6C584C] transition-colors duration-200 hover:text-[#A98467]"
-                  href="#"
-                >
-                  {item}
-                </a>
-              ))}
-            </nav>
+          ))}
+        </nav>
           </header>
           <main className="flex-1">
             <section className="w-full py-12 md:py-24 lg:py-32 xl:py-48 bg-[#DDE5B6]">
