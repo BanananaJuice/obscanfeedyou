@@ -160,7 +160,7 @@ export default async function FunHomePage() {
                     </CardHeader>
                     <CardContent>
                       <p className="text-4xl font-bold text-[#6C584C]">{unemploymentRate}%</p>
-                      <p className="text-[#6C584C] mt-2">We're working hard to make a difference!</p>
+                      <p className="text-[#6C584C] mt-2">We&pos;re working hard to make a difference!</p>
                     </CardContent>
                   </Card>
                   
@@ -173,7 +173,7 @@ export default async function FunHomePage() {
                     </CardHeader>
                     <CardContent>
                       <p className="text-4xl font-bold text-[#6C584C]">{totalPeopleFed.toLocaleString()}</p>
-                      <p className="text-[#6C584C] mt-2">That's a lot of happy tummies!</p>
+                      <p className="text-[#6C584C] mt-2">That&apos;s a lot of happy tummies!</p>
                     </CardContent>
                   </Card>
                 </div>
