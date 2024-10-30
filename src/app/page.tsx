@@ -63,14 +63,18 @@ export default async function FunHomePage() {
           </nav>
         </header>
         <main className="flex-1">
-          <section className="w-full py-12 md:py-24 lg:py-32 xl:py-48 bg-[#DDE5B6]">
+          <section className="w-full py-12 md:py-24 lg:py-32 xl:py-48"style={{
+            backgroundImage: "url('/fruit_print.png')",
+            backgroundSize: "cover",
+            backgroundPosition: "center",
+          }}>
             <div className="container px-4 md:px-6 mx-auto">
               <div className="flex flex-col items-center space-y-4 text-center">
                 <div className="space-y-2">
                   <h1 className="text-4xl font-bold tracking-tighter sm:text-5xl md:text-6xl lg:text-7xl text-[#6C584C]">
                     Sharing Smiles, One Meal at a Time!
                   </h1>
-                  <p className="mx-auto max-w-[700px] text-[#A98467] text-xl md:text-2xl font-semibold">
+                  <p className="mx-auto max-w-[700px] text-[#6C584C] text-xl md:text-2xl font-semibold">
                     Join our weekend food fiesta and help us spread joy to those in need!
                   </p>
                 </div>
@@ -160,7 +164,7 @@ export default async function FunHomePage() {
                     </CardHeader>
                     <CardContent>
                       <p className="text-4xl font-bold text-[#6C584C]">{unemploymentRate}%</p>
-                      <p className="text-[#6C584C] mt-2">We&pos;re working hard to make a difference!</p>
+                      <p className="text-[#6C584C] mt-2">We&apos;re working hard to make a difference!</p>
                     </CardContent>
                   </Card>
                   
