@@ -31,21 +31,15 @@ export default async function FunHomePage() {
     "https://api.worldbank.org/v2/country/za/indicator/SL.UEM.TOTL.ZS?format=json"
   )
   
+  // Extract the latest unemployment rate from the response with type safety
   const unemploymentRate = unemploymentRateData.data?.[1]?.[0]?.value ?? "N/A"
 
   return (
     <HydrateClient>
-      <div className="flex flex-col min-h-screen">
-        <header
-          className="px-4 sm:px-6 h-24 flex items-center justify-between bg-[#ADC178] shadow-md"
-          style={{
-            backgroundImage: "url('/volunteer_doodle.png')",
-            backgroundSize: "cover",
-            backgroundPosition: "center",
-          }}
-        >
-          <div className="flex items-center">
-            <div className="relative w-12 sm:w-16 h-12 sm:h-16 mr-3">
+      <div className="flex flex-col min-h-screen bg-[#F0EAD2]">
+        <header className="px-4 lg:px-6 h-24 flex items-center bg-[#ADC178] shadow-md">
+          <div className="flex items-center justify-center">
+            <div className="relative w-16 h-16 mr-3">
               <Image
                 src="/ObsCan_logo.png"
                 alt="ObsCanFeedYou Logo"
@@ -54,13 +48,13 @@ export default async function FunHomePage() {
                 className="rounded-full"
               />
             </div>
-            <span className="text-2xl sm:text-3xl font-bold text-[#6C584C]">ObsCanFeedYou</span>
+            <span className="text-3xl font-bold text-[#6C584C]">ObsCanFeedYou</span>
           </div>
-          <nav className="flex gap-2 sm:gap-4 text-sm sm:text-lg">
+          <nav className="ml-auto flex gap-4 sm:gap-6">
             {["Home", "About", "Help Out", "Donate"].map((item) => (
               <a
                 key={item}
-                className="hover:underline underline-offset-4 text-[#6C584C] transition-colors duration-200 hover:text-[#A98467]"
+                className="text-lg font-medium hover:underline underline-offset-4 text-[#6C584C] transition-colors duration-200 hover:text-[#A98467]"
                 href="#"
               >
                 {item}
@@ -68,57 +62,56 @@ export default async function FunHomePage() {
             ))}
           </nav>
         </header>
-
         <main className="flex-1">
-          <section
-            className="w-full py-8 sm:py-12 md:py-24 xl:py-48 flex items-center justify-center"
-            style={{
-              backgroundImage: "url('/fruit_print.png')",
-              backgroundSize: "cover",
-              backgroundPosition: "center",
-            }}
-          >
-            <div className="container px-4 sm:px-6 mx-auto text-center space-y-4">
-              <h1 className="text-3xl sm:text-5xl md:text-6xl font-bold tracking-tighter text-[#6C584C]">
-                Sharing Smiles, One Meal at a Time!
-              </h1>
-              <p className="max-w-[700px] mx-auto text-lg sm:text-xl md:text-2xl text-[#A98467] font-semibold">
-                Join our weekend food fiesta and help us spread joy to those in need!
-              </p>
-              <div className="space-y-4 sm:space-x-4 flex flex-col sm:flex-row">
-                <Button className="bg-[#dec0f1] text-[#6C584C] hover:bg-[#ADC178] font-bold text-lg py-2 px-6 rounded-full transition-all duration-200 hover:scale-105">
-                  Learn More
-                </Button>
-                <Button className="bg-[#A98467] text-[#F0EAD2] hover:bg-[#6C584C] font-bold text-lg py-2 px-6 rounded-full transition-all duration-200 hover:scale-105">
-                  Get Involved
-                </Button>
+          <section className="w-full py-12 md:py-24 lg:py-32 xl:py-48"style={{
+            backgroundImage: "url('/fruit_print.png')",
+            backgroundSize: "cover",
+            backgroundPosition: "center",
+          }}>
+            <div className="container px-4 md:px-6 mx-auto">
+              <div className="flex flex-col items-center space-y-4 text-center">
+                <div className="space-y-2">
+                  <h1 className="text-4xl font-bold tracking-tighter sm:text-5xl md:text-6xl lg:text-7xl text-[#6C584C]">
+                    Sharing Smiles, One Meal at a Time!
+                  </h1>
+                  <p className="mx-auto max-w-[700px] text-[#6C584C] text-xl md:text-2xl font-semibold">
+                    Join our weekend food fiesta and help us spread joy to those in need!
+                  </p>
+                </div>
+                <div className="space-x-4">
+                  <Button className="bg-[#dec0f1] text-[#6C584C] hover:bg-[#ADC178] text-lg font-bold py-2 px-6 rounded-full transition-all duration-200 hover:scale-105">
+                    Learn More
+                  </Button>
+                  <Button className="bg-[#A98467] text-[#F0EAD2] hover:bg-[#6C584C] text-lg font-bold py-2 px-6 rounded-full transition-all duration-200 hover:scale-105">
+                    Get Involved
+                  </Button>
+                </div>
               </div>
             </div>
           </section>
-
-          <section className="w-full py-8 sm:py-12 md:py-24 bg-[#F0EAD2]">
-            <div className="container px-4 sm:px-6 mx-auto text-center">
-              <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold tracking-tight mb-8 text-[#6C584C]">Our Yummy Impact</h2>
-              <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
+          <section className="w-full py-12 md:py-24 lg:py-32 bg-[#F0EAD2]">
+            <div className="container px-4 md:px-6 mx-auto">
+              <h2 className="text-3xl font-bold tracking-tighter sm:text-5xl text-center mb-8 text-[#6C584C]">Our Yummy Impact</h2>
+              <div className="grid gap-6 lg:grid-cols-3 lg:gap-12 mb-12">
                 {[
                   {
                     title: "Our Growing Volunteer Network",
                     description: "A collection of good people",
-                    content: "Our volunteer community is growing every week...",
+                    content: "Our volunteer community is growing every week and promises awlays brings a fun time whilst helping a good cause",
                     icon: Users,
                     color: "bg-[#ADC178]",
                   },
                   {
                     title: "Weekend Food Fiesta",
                     description: "Non-stop weekend noms",
-                    content: "Our food heroes make sure meals are ready every weekend...",
+                    content: "Our food heroes make sure delicious meals are ready every Saturday and Sunday, rain or shine!",
                     icon: Calendar,
                     color: "bg-[#DDE5B6]",
                   },
                   {
                     title: "100% People-Powered",
                     description: "Community love in action",
-                    content: "Our kitchen is fueled by the kindness of awesome volunteers!",
+                    content: "Our kitchen is fueled by the kindness of awesome volunteers from all walks of life!",
                     icon: Heart,
                     color: "bg-[#dec0f1]",
                   },
@@ -135,8 +128,8 @@ export default async function FunHomePage() {
                   </Card>
                 ))}
               </div>
-
-              <div className="grid gap-6 lg:grid-cols-3 lg:gap-12 mt-8">
+              
+              <div className="grid gap-6 lg:grid-cols-3 lg:gap-12">
                 <Card className="lg:col-span-2 bg-[#DDE5B6] border-4 border-[#6C584C] rounded-2xl overflow-hidden">
                   <CardHeader>
                     <div className="flex items-center justify-between">
