@@ -143,7 +143,7 @@ export default async function FunHomePage() {
                       <LineChart data={chartData} />
                     </div>
                     <p className="mt-4 text-[#6C584C] text-lg">
-                      This chart shows the number of happy tummies we've filled each week. 
+                      This chart shows the number of happy tummies we&apos;ve filled each week. 
                       We update it every Saturday and Sunday, right after our weekend food fiesta! 
                       Watch those numbers climb as we spread more smiles across our community.
                     </p>
