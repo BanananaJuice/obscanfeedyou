@@ -14,7 +14,6 @@ export default async function FunHomePage() {
   const homelessFeedData = await api.homelessStats.getAll()
 
   const totalPeopleFed = homelessFeedData.reduce((sum, entry) => sum + entry.peopleFed, 0)
-
   const chartData = homelessFeedData
     .filter(entry => {
       const day = new Date(entry.date).getDay()
@@ -30,7 +29,7 @@ export default async function FunHomePage() {
   const unemploymentRateData = await axios.get<WorldBankResponse>(
     "https://api.worldbank.org/v2/country/za/indicator/SL.UEM.TOTL.ZS?format=json"
   )
-  
+
   // Extract the latest unemployment rate from the response with type safety
   const unemploymentRate = unemploymentRateData.data?.[1]?.[0]?.value ?? "N/A"
 
@@ -51,11 +50,11 @@ export default async function FunHomePage() {
             <span className="text-3xl font-bold text-[#6C584C]">ObsCanFeedYou</span>
           </div>
           <nav className="ml-auto flex gap-4 sm:gap-6">
-            {["Home", "About", "Help Out", "Donate"].map((item) => (
+            {["Home", "Social Media"].map((item) => (
               <a
                 key={item}
                 className="text-lg font-medium hover:underline underline-offset-4 text-[#6C584C] transition-colors duration-200 hover:text-[#A98467]"
-                href="#"
+                href={item === "Social Media" ? "https://www.instagram.com/obscanfeedyou/" : "#"}
               >
                 {item}
               </a>
@@ -63,7 +62,7 @@ export default async function FunHomePage() {
           </nav>
         </header>
         <main className="flex-1">
-          <section className="w-full py-12 md:py-24 lg:py-32 xl:py-48"style={{
+          <section className="w-full py-12 md:py-24 lg:py-32 xl:py-48" style={{
             backgroundImage: "url('/fruit_print.png')",
             backgroundSize: "cover",
             backgroundPosition: "center",
@@ -79,12 +78,18 @@ export default async function FunHomePage() {
                   </p>
                 </div>
                 <div className="space-x-4">
-                  <Button className="bg-[#dec0f1] text-[#6C584C] hover:bg-[#ADC178] text-lg font-bold py-2 px-6 rounded-full transition-all duration-200 hover:scale-105">
+                  <a
+                    href="https://www.instagram.com/obscanfeedyou/"
+                    className="bg-[#dec0f1] text-[#6C584C] hover:bg-[#ADC178] text-lg font-bold py-2 px-6 rounded-full transition-all duration-200 hover:scale-105 inline-block text-center"
+                  >
                     Learn More
-                  </Button>
-                  <Button className="bg-[#A98467] text-[#F0EAD2] hover:bg-[#6C584C] text-lg font-bold py-2 px-6 rounded-full transition-all duration-200 hover:scale-105">
+                  </a>
+                  <a 
+                  className="bg-[#A98467] text-[#F0EAD2] hover:bg-[#6C584C] text-lg font-bold py-2 px-6 rounded-full transition-all duration-200 hover:scale-105"
+                   href="https://www.instagram.com/obscanfeedyou/"
+                  >
                     Get Involved
-                  </Button>
+                  </a>
                 </div>
               </div>
             </div>
@@ -128,7 +133,7 @@ export default async function FunHomePage() {
                   </Card>
                 ))}
               </div>
-              
+
               <div className="grid gap-6 lg:grid-cols-3 lg:gap-12">
                 <Card className="lg:col-span-2 bg-[#DDE5B6] border-4 border-[#6C584C] rounded-2xl overflow-hidden">
                   <CardHeader>
@@ -147,13 +152,13 @@ export default async function FunHomePage() {
                       <LineChart data={chartData} />
                     </div>
                     <p className="mt-4 text-[#6C584C] text-lg">
-                      This chart shows the number of happy tummies we&apos;ve filled each week. 
-                      We update it every Saturday and Sunday, right after our weekend food fiesta! 
+                      This chart shows the number of happy tummies we&apos;ve filled each week.
+                      We update it every Saturday and Sunday, right after our weekend food fiesta!
                       Watch those numbers climb as we spread more smiles across our community.
                     </p>
                   </CardContent>
                 </Card>
-                
+
                 <div className="space-y-6">
                   <Card className="bg-[#ADC178] border-4 border-[#6C584C] rounded-2xl overflow-hidden">
                     <CardHeader>
@@ -167,7 +172,7 @@ export default async function FunHomePage() {
                       <p className="text-[#6C584C] mt-2">We&apos;re working hard to make a difference!</p>
                     </CardContent>
                   </Card>
-                  
+
                   <Card className="bg-[#dec0f1] border-4 border-[#6C584C] rounded-2xl overflow-hidden">
                     <CardHeader>
                       <div className="flex items-center justify-between">
@@ -216,7 +221,7 @@ export default async function FunHomePage() {
           </nav>
         </footer>
       </div>
-      <Analytics/>
+      <Analytics />
     </HydrateClient>
   )
 }
